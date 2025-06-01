@@ -1,0 +1,22 @@
+<!-- hospital/templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Prediction Result</title>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+
+    <p><strong>Patient:</strong> {{ ct_scan.patient.name }}</p>
+    <p><strong>Doctor:</strong> {{ ct_scan.doctor.get_full_name }}</p>
+    <p><strong>Prediction:</strong> {{ ct_scan.prediction }}</p>
+    <p><strong>Confidence:</strong> {{ confidence|floatformat:2 }}</p>
+
+    <p><strong>Uploaded Scan:</strong></p>
+    <img src="{{ ct_scan.image.url }}" alt="CT Scan Image" width="300" />
+
+    <br /><br />
+    <a href="{% url 'upload_ct_scan' %}">Upload Another Scan</a>
+</body>
+</html>

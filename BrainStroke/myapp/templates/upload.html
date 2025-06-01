@@ -1,0 +1,33 @@
+<!-- hospital/templates/upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Upload CT Scan</title>
+</head>
+<body>
+    <h1>Upload CT Scan for Prediction</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="patient">Select Patient:</label>
+        <select name="patient_id" id="patient" >
+            <option value="" disabled selected>Select a patient</option>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">{{ patient.name }} ({{ patient.dob }})</option>
+            {% endfor %}
+        </select>
+        <br /><br />
+
+        <label for="image">Select CT Scan Image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required />
+        <br /><br />
+
+        <button type="submit">Upload & Predict</button>
+    </form>
+</body>
+</html>
