@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{% static 'images/hospital1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .dashboard-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            margin: 5vh auto;
+            max-width: 800px;
+        }
+
+        h2 {
+            font-weight: bold;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+
+        .list-group-item {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Welcome Dr. {{ doctor.name }}</h2>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+            <hr>
+            <div class="mb-3">
+                <a href="{% url 'add_patient' %}" class="btn btn-primary">Add Patient</a>
+                <a href="{% url 'upload' %}" class="btn btn-secondary">Upload CT Scan</a>
+            </div>
+
+            <h4 class="mb-3">Your Patients</h4>
+            <ul class="list-group">
+                {% for patient in patients %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ patient.name }} ({{ patient.age }} yrs, {{ patient.gender }})
+                        <a href="{% url 'history' patient.id %}" class="btn btn-sm btn-outline-primary">View History</a>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No patients added yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
